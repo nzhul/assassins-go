@@ -12,9 +12,16 @@ public class PlayerMover : MonoBehaviour
     public float moveSpeed = 1.5f;
     public float iTweenDelay = 0;
 
+    Board _board;
+
+    private void Awake()
+    {
+        _board = FindObjectOfType<Board>().GetComponent<Board>();
+    }
+
     private void Start()
     {
-        //StartCoroutine(Test());
+        UpdateBoard();
     }
 
     //public IEnumerator Test()
@@ -33,7 +40,14 @@ public class PlayerMover : MonoBehaviour
 
     public void Move(Vector3 destinationPos, float delayTime = .25f)
     {
-        StartCoroutine(MoveRoutine(destinationPos, delayTime));
+        if (_board != null)
+        {
+            Node targetNode = _board.FindNodeAt(destinationPos);
+            if (targetNode != null && _board.PlayerNode.LinedNodes.Contains(targetNode))
+            {
+                StartCoroutine(MoveRoutine(destinationPos, delayTime));
+            }
+        }
     }
 
     IEnumerator MoveRoutine(Vector3 destinationPos, float delayTime)
@@ -58,30 +72,40 @@ public class PlayerMover : MonoBehaviour
         iTween.Stop(gameObject);
         transform.position = destinationPos;
         isMoving = false;
+        UpdateBoard();
     }
 
     public void MoveLeft()
     {
-        Vector3 newPosition = transform.position + new Vector3(-2, 0, 0);
+        Vector3 newPosition = transform.position + new Vector3(-Board.spacing, 0, 0);
         Move(newPosition, 0);
     }
 
     public void MoveRight()
     {
-        Vector3 newPosition = transform.position + new Vector3(2, 0, 0);
+        Vector3 newPosition = transform.position + new Vector3(Board.spacing, 0, 0);
         Move(newPosition, 0);
     }
 
     public void MoveForward()
     {
-        Vector3 newPosition = transform.position + new Vector3(0, 0, 2);
+        Vector3 newPosition = transform.position + new Vector3(0, 0, Board.spacing);
         Move(newPosition, 0);
     }
 
     public void MoveBackward()
     {
-        Vector3 newPosition = transform.position + new Vector3(0, 0, -2);
+        Vector3 newPosition = transform.position + new Vector3(0, 0, -Board.spacing);
         Move(newPosition, 0);
     }
+
+    void UpdateBoard()
+    {
+        if (_board != null)
+        {
+            _board.UpdatePlayerNode();
+        }
+    }
+
 
 }

@@ -39,9 +39,11 @@ public class Node : MonoBehaviour
     public GameObject geometry;
     public float scaleTime = .3f;
     public iTween.EaseType easeType = iTween.EaseType.easeInExpo;
-    public bool autoRun = false;
     public float initDelay = 1f;
     bool _isInitialized = false;
+    public LayerMask obstacleLayer;
+
+    public bool isLevelGoal = false;
 
     private void Awake()
     {
@@ -54,11 +56,6 @@ public class Node : MonoBehaviour
         if (geometry != null)
         {
             geometry.transform.localScale = Vector3.zero;
-
-            if (autoRun)
-            {
-                InitNode();
-            }
         }
 
         if (_board != null)
@@ -119,8 +116,12 @@ public class Node : MonoBehaviour
         {
             if (!_linkedNodes.Contains(n))
             {
-                LinkNode(n);
-                n.InitNode();
+                Obstacle obstacle = FindObstacle(n);
+                if (obstacle == null)
+                {
+                    LinkNode(n);
+                    n.InitNode();
+                }
             }
         }
     }
@@ -144,5 +145,17 @@ public class Node : MonoBehaviour
         {
             targetNode.LinedNodes.Add(this);
         }
+    }
+
+    Obstacle FindObstacle(Node targetNode)
+    {
+        Vector3 checkDirection = targetNode.transform.position - this.transform.position;
+        RaycastHit raycastHit;
+        if (Physics.Raycast(transform.position, checkDirection, out raycastHit, Board.spacing + .1f, obstacleLayer))
+        {
+            return raycastHit.collider.GetComponent<Obstacle>();
+        }
+
+        return null;
     }
 }
