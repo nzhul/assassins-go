@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -69,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     public float delay = 1f;
 
+    public UnityEvent setupEvent;
     public UnityEvent startLevelEvent;
     public UnityEvent playLevelEvent;
     public UnityEvent endLevelEvent;
@@ -101,6 +101,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartLevelRoutine()
     {
         Debug.Log("START LEVEL");
+        if (setupEvent != null)
+        {
+            setupEvent.Invoke();
+        }
         _player.playerInput.InputEnabled = false;
         while (!_hasLevelStarter)
         {
