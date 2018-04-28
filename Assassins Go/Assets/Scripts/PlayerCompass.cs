@@ -21,6 +21,7 @@ public class PlayerCompass : MonoBehaviour
     {
         _board = FindObjectOfType<Board>().GetComponent<Board>();
         SetupArrows();
+        MoveArrows();
     }
 
     void SetupArrows()
@@ -73,6 +74,37 @@ public class PlayerCompass : MonoBehaviour
         {
             Debug.LogWarning("PLAYERCOMPASS ShowArrows ERROR: no arrows found!");
             return;
+        }
+
+        if (_board.PlayerNode != null)
+        {
+            for (int i = 0; i < Board.directions.Length; i++)
+            {
+                Node neighbor = _board.PlayerNode.FindNeighborAt(Board.directions[i]);
+                if (neighbor == null || !state)
+                {
+                    _arrows[i].SetActive(false);
+                }
+                else
+                {
+                    bool activeState = _board.PlayerNode.LinkedNodes.Contains(neighbor);
+                    _arrows[i].SetActive(activeState);
+                }
+            }
+        }
+
+        ResetArrows();
+        MoveArrows();
+    }
+
+    void ResetArrows()
+    {
+        for (int i = 0; i < Board.directions.Length; i++)
+        {
+            iTween.Stop(_arrows[i]);
+            Vector3 dirVector = new Vector3(Board.directions[i].normalized.x, 0f, Board.directions[i].normalized.y);
+
+            _arrows[i].transform.position = transform.position + dirVector * startDistance;
         }
     }
 }
