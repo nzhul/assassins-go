@@ -5039,6 +5039,67 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 7734ccabdfabd914dbc982b575e421d7, type: 3}
   m_PrefabInternal: {fileID: 233159788}
+--- !u!1 &975744398 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+  m_PrefabInternal: {fileID: 1122836043}
+--- !u!114 &975744402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 975744398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3deed808d874478440f76c4d99160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: {x: 0, y: 0, z: 0}
+  faceDestination: 1
+  isMoving: 0
+  easeType: 17
+  moveSpeed: 1.5
+  rotateTime: 0.5
+  iTweenDelay: 0
+  finishMovement:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 975744403}
+        m_MethodName: FinishTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &975744403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 975744398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5253ba7e8e3c04b43ac73f17d7a06bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &975744404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 975744398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b06beb84c4115f44bc0a4717f0ed326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionToSearch: {x: 0, y: 0, z: 2}
 --- !u!4 &1000331070 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4136205493886898, guid: 12f89db40d4fb5048b199d1196e59791,
@@ -5449,6 +5510,52 @@ Transform:
   m_Father: {fileID: 450452855}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1122836043
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d6f8ea53814933f4b85a9fa0c27c6804, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1001 &1125243126
 Prefab:
   m_ObjectHideFlags: 0
@@ -6437,10 +6544,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
+  faceDestination: 0
   isMoving: 0
   easeType: 10
   moveSpeed: 2
+  rotateTime: 0.5
   iTweenDelay: 0
+  finishMovement:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1383936230}
+        m_MethodName: FinishTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &1383936228
 Transform:
   m_ObjectHideFlags: 0
