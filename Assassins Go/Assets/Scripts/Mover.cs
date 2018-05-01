@@ -24,7 +24,7 @@ public class Mover : MonoBehaviour
 
     protected Node _currentNode;
 
-    public UnityEvent finishMovement;
+    public UnityEvent finishMovementEvent;
 
     protected virtual void Awake()
     {

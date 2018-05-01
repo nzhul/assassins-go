@@ -29,12 +29,11 @@ public class EnemyManager : TurnManager {
 
         // attack player
 
-        // movement
-        //_enemyMover. Some move method ...
 
         // wait 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
 
-
+        // movement
+        _enemyMover.MoveOneTurn();
     }
 }

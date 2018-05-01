@@ -27,8 +27,6 @@ public class PlayerMover : Mover
 
     protected override IEnumerator MoveRoutine(Vector3 destinationPos, float delayTime)
     {
-        
-
         if (_playerCompass != null)
         {
             _playerCompass.ShowArrows(false);
@@ -42,5 +40,7 @@ public class PlayerMover : Mover
         {
             _playerCompass.ShowArrows(true);
         }
+
+        base.finishMovementEvent.Invoke();
     }
 }

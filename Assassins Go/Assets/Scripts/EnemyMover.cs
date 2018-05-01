@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyMover : Mover {
 
+    public float standTime = 1f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -13,29 +15,21 @@ public class EnemyMover : Mover {
     protected override void Start()
     {
         base.Start();
-        //StartCoroutine(TestMovementRoutine()); // use this for testing the movement
     }
 
-    IEnumerator TestMovementRoutine()
+    public void MoveOneTurn()
     {
-        yield return new WaitForSeconds(5f);
-        MoveForward();
-
-        yield return new WaitForSeconds(2f);
-        MoveRight();
-
-        yield return new WaitForSeconds(2f);
-        MoveForward();
-
-        yield return new WaitForSeconds(2f);
-        MoveForward();
-
-        yield return new WaitForSeconds(2f);
-        MoveBackward();
-
-        yield return new WaitForSeconds(2f);
-        MoveBackward();
-
+        Stand();
     }
 
+    void Stand()
+    {
+        StartCoroutine(StandRoutine());
+    }
+
+    IEnumerator StandRoutine()
+    {
+        yield return new WaitForSeconds(standTime);
+        base.finishMovementEvent.Invoke();
+    }
 }
