@@ -3,7 +3,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
 [RequireComponent(typeof(EnemySensor))]
-public class EnemyManager : TurnManager {
+public class EnemyManager : TurnManager
+{
 
     EnemyMover _enemyMover;
     EnemySensor _enemySensor;
@@ -24,16 +25,27 @@ public class EnemyManager : TurnManager {
 
     IEnumerator PlayTurnRoutine()
     {
-        // detect player
-        _enemySensor.UpdateSensor();
+        if (_gameManager != null && !_gameManager.IsGameOver)
+        {
+            // detect player
+            _enemySensor.UpdateSensor();
 
-        // attack player
+            // wait 
+            yield return new WaitForSeconds(0f);
 
+            if (_enemySensor.FoundPlayer)
+            {
+                // attack player
 
-        // wait 
-        yield return new WaitForSeconds(0.5f);
+                // notify the gamemanager to lose the level
 
-        // movement
-        _enemyMover.MoveOneTurn();
+                _gameManager.LoseLevel();
+            }
+            else
+            {
+                // movement
+                _enemyMover.MoveOneTurn();
+            }
+        }
     }
 }

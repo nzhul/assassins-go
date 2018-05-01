@@ -55,7 +55,7 @@ public class Mover : MonoBehaviour
             }
             else
             {
-                Debug.Log("MOVER: " + _currentNode.name + " not connected " + targetNode.name);
+                Debug.Log("MOVER Error: current Node not connected to target node");
             }
         }
     }
@@ -127,7 +127,7 @@ public class Mover : MonoBehaviour
         }
     }
 
-    void FaceDestination()
+    protected void FaceDestination()
     {
         Vector3 relativePosition = destination - transform.position;
         Quaternion newRotation = Quaternion.LookRotation(relativePosition, Vector3.up);
