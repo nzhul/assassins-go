@@ -3,11 +3,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
 [RequireComponent(typeof(EnemySensor))]
+[RequireComponent(typeof(EnemyAttack))]
 public class EnemyManager : TurnManager
 {
 
     EnemyMover _enemyMover;
     EnemySensor _enemySensor;
+    EnemyAttack _enemyAttack;
     Board _board;
 
     protected override void Awake()
@@ -16,6 +18,7 @@ public class EnemyManager : TurnManager
         _board = FindObjectOfType<Board>().GetComponent<Board>();
         _enemyMover = GetComponent<EnemyMover>();
         _enemySensor = GetComponent<EnemySensor>();
+        _enemyAttack = GetComponent<EnemyAttack>();
     }
 
     public void PlayTurn()
@@ -35,11 +38,20 @@ public class EnemyManager : TurnManager
 
             if (_enemySensor.FoundPlayer)
             {
-                // attack player
-
                 // notify the gamemanager to lose the level
-
                 _gameManager.LoseLevel();
+
+                Vector3 playerPosition = new Vector3(_board.PlayerNode.Coordinate.x, 0f, _board.PlayerNode.Coordinate.y);
+
+                _enemyMover.Move(playerPosition, 0f);
+
+                while (_enemyMover.isMoving)
+                {
+                    yield return null;
+                }
+
+                // attack player
+                _enemyAttack.Attack();
             }
             else
             {

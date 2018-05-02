@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114803941519516450}
   - component: {fileID: 114553535091612718}
   - component: {fileID: 114643915378935650}
+  - component: {fileID: 114866596744559188}
   m_Layer: 0
   m_Name: EnemyStationary
   m_TagString: Untagged
@@ -57,6 +58,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 9113043281a6d4f4d9f45256ea443ed1, type: 2}
   - {fileID: 2100000, guid: c744499b5a540c144be2d22f11befdfe, type: 2}
@@ -126,9 +128,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   faceDestination: 1
   isMoving: 0
-  easeType: 13
-  moveSpeed: 4
-  rotateTime: 0.3
+  easeType: 10
+  moveSpeed: 3
+  rotateTime: 0.5
   iTweenDelay: 0
   finishMovementEvent:
     m_PersistentCalls:
@@ -149,3 +151,14 @@ MonoBehaviour:
   directionToMove: {x: 0, y: 0, z: 2}
   movementType: 0
   standTime: 1
+--- !u!114 &114866596744559188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1712861646876886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1abe728c53245164cb8a5af62356be78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

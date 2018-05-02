@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114123654178972450}
   - component: {fileID: 114848295177852456}
   - component: {fileID: 114632325994424942}
+  - component: {fileID: 114877056658831380}
   m_Layer: 0
   m_Name: EnemyPatrol
   m_TagString: Untagged
@@ -57,6 +58,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 9113043281a6d4f4d9f45256ea443ed1, type: 2}
   - {fileID: 2100000, guid: c744499b5a540c144be2d22f11befdfe, type: 2}
@@ -147,5 +149,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5253ba7e8e3c04b43ac73f17d7a06bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114877056658831380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574874085943024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1abe728c53245164cb8a5af62356be78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

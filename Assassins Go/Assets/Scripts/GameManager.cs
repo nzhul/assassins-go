@@ -212,6 +212,8 @@ public class GameManager : MonoBehaviour
     {
         _isGameOver = true;
 
+        yield return new WaitForSeconds(1.5f);
+
         if (loseLevelEvent != null)
         {
             loseLevelEvent.Invoke();
