@@ -59,7 +59,7 @@ public class EnemyMover : Mover
     IEnumerator PatrolRoutine()
     {
         // cache our starting position
-        Vector3 startPos = new Vector3(m_currentNode.Coordinate.x, 0f, m_currentNode.Coordinate.y);
+        Vector3 startPos = new Vector3(base.CurrentNode.Coordinate.x, 0f, base.CurrentNode.Coordinate.y);
 
         // one space forward
         Vector3 newDest = startPos + transform.TransformVector(directionToMove);

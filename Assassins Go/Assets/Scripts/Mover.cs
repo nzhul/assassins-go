@@ -32,9 +32,22 @@ public class Mover : MonoBehaviour
     protected Board m_board;
 
     // current Node on the Board
-    protected Node m_currentNode;
+    private Node _currentNode;
 
     public UnityEvent finishMovementEvent;
+
+    public Node CurrentNode
+    {
+        get
+        {
+            return _currentNode;
+        }
+
+        set
+        {
+            _currentNode = value;
+        }
+    }
 
     // setup the Mover
     protected virtual void Awake()
@@ -61,8 +74,8 @@ public class Mover : MonoBehaviour
         {
             Node targetNode = m_board.FindNodeAt(destinationPos);
 
-            if (targetNode != null && m_currentNode != null && 
-                m_currentNode.LinkedNodes.Contains(targetNode))
+            if (targetNode != null && _currentNode != null && 
+                _currentNode.LinkedNodes.Contains(targetNode))
             {
                 // start the coroutine MoveRoutine
                 StartCoroutine(MoveRoutine(destinationPos, delayTime));
@@ -155,7 +168,7 @@ public class Mover : MonoBehaviour
     {
         if (m_board != null)
         {
-            m_currentNode = m_board.FindNodeAt(transform.position);
+            _currentNode = m_board.FindNodeAt(transform.position);
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(EnemyMover))]
 [RequireComponent(typeof(EnemySensor))]
@@ -18,6 +19,17 @@ public class EnemyManager : TurnManager
     // reference to Board component
     Board m_board;
 
+    bool _isDead = false;
+    public bool IsDead
+    {
+        get
+        {
+            return _isDead;
+        }
+    }
+
+    public UnityEvent deathEvent;
+
     // setup member variables
     protected override void Awake()
     {
@@ -33,6 +45,12 @@ public class EnemyManager : TurnManager
     // play the Enemy's turn routine
     public void PlayTurn()
     {
+        if (_isDead)
+        {
+            FinishTurn();
+            return;
+        }
+
         StartCoroutine(PlayTurnRoutine());
     }
 
@@ -49,8 +67,8 @@ public class EnemyManager : TurnManager
 
             if (m_enemySensor.FoundPlayer)
             {
-				// notify the GameManager to lose the level
-				m_gameManager.LoseLevel();
+                // notify the GameManager to lose the level
+                m_gameManager.LoseLevel();
 
                 // the player's position
                 Vector3 playerPosition = new Vector3(m_board.PlayerNode.Coordinate.x, 0f,
@@ -74,6 +92,21 @@ public class EnemyManager : TurnManager
                 // movement
                 m_enemyMover.MoveOneTurn();
             }
+        }
+    }
+
+    public void Die()
+    {
+        if (_isDead)
+        {
+            return;
+        }
+
+        _isDead = true;
+
+        if (deathEvent != null)
+        {
+            deathEvent.Invoke();
         }
     }
 }
