@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover))]
@@ -6,8 +8,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerDeath))]
 public class PlayerManager : TurnManager
 {
-
-    public PlayerMover playerMover;
+	// reference to PlayerMover and PlayerInput components
+	public PlayerMover playerMover;
     public PlayerInput playerInput;
 
     public UnityEvent deathEvent;
@@ -15,21 +17,28 @@ public class PlayerManager : TurnManager
     protected override void Awake()
     {
         base.Awake();
-        playerMover = GetComponent<PlayerMover>();
+
+		// cache references to PlayerMover and PlayerInput
+		playerMover = GetComponent<PlayerMover>();
         playerInput = GetComponent<PlayerInput>();
-        playerInput.InputEnabled = true;
+
+		// make sure that input is enabled when we begin
+		playerInput.InputEnabled = true;
     }
 
-    private void Update()
+    void Update()
     {
-        if (playerMover.isMoving || _gameManager.CurrentTurn != Turn.Player)
+		// if the player is currently moving or if it's not the Player's turn, ignore user input
+        if (playerMover.isMoving || m_gameManager.CurrentTurn != Turn.Player)
         {
             return;
         }
 
-        playerInput.GetKeyInput();
+		// get keyboard input
+		playerInput.GetKeyInput();
 
-        if (playerInput.V == 0)
+		// connect user input with PlayerMover's Move methods
+		if (playerInput.V == 0)
         {
             if (playerInput.H < 0)
             {
@@ -60,5 +69,4 @@ public class PlayerManager : TurnManager
             deathEvent.Invoke();
         }
     }
-
 }

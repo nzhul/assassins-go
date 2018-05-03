@@ -1,23 +1,31 @@
 fileFormatVersion: 2
-guid: 9222a60c60d81e14894faf2284ccc5c3
-timeCreated: 1524906242
+guid: fd8faa3377bf84f2695fa8fbec732f36
+timeCreated: 1507652395
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: plaqueMat
-    2100002: labelMat
     2300000: //RootNode
     3300000: //RootNode
     4300000: levelPlaque
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: labelMat
+    second: {fileID: 2100000, guid: d79f54efa78cb4c8cb3c94686b704ec9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plaqueMat
+    second: {fileID: 2100000, guid: 76dc72ff979544737a086bceed5d6563, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -55,8 +63,6 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

@@ -2,39 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager : MonoBehaviour {
+// base class for player and enemy game pieces
+public class TurnManager : MonoBehaviour
+{
+    // reference to GameManager
+    protected GameManager m_gameManager;
 
-    protected GameManager _gameManager;
+    // have we completed our turn?
+    protected bool m_isTurnComplete = false;
+    public bool IsTurnComplete { get { return m_isTurnComplete; } set { m_isTurnComplete = value; }}
 
-    protected bool _isTurnComplete = false;
-
-    public bool IsTurnComplete
+    // initialize fields
+    protected virtual void Awake()
     {
-        get
-        {
-            return _isTurnComplete;
-        }
-        set
-        {
-            _isTurnComplete = value;
-        }
+        m_gameManager = Object.FindObjectOfType<GameManager>().GetComponent<GameManager>();
     }
 
-	protected virtual void Awake()
-    {
-        _gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
-    }
-
+    // complete the turn and notify the GameManager
     public void FinishTurn()
     {
-        _isTurnComplete = true;
+        m_isTurnComplete = true;
 
-        // update the GameManager
-
-        if (_gameManager != null)
+        if (m_gameManager != null)
         {
-            _gameManager.UpdateTurn();
+            m_gameManager.UpdateTurn();
         }
-    }
 
+    }
 }

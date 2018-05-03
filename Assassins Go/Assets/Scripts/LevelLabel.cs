@@ -7,15 +7,17 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class LevelLabel : MonoBehaviour
 {
-    Text _text;
+
+    Text m_text;
 
     void Awake()
     {
-		_text = GetComponent<Text>();
+        m_text = GetComponent<Text>();
 
-		if (_text != null)
-		{
-			_text.text = SceneManager.GetActiveScene().name;
-		}
+        if (m_text != null)
+        {
+            m_text.text = SceneManager.GetActiveScene().name;
+        }
     }
+
 }

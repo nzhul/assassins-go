@@ -1,17 +1,12 @@
 fileFormatVersion: 2
-guid: d6f8ea53814933f4b85a9fa0c27c6804
-timeCreated: 1524923505
+guid: 09fe16a911de341d492d11746a5d9472
+timeCreated: 1507663007
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: standMat
-    2100002: skinMat
-    2100004: guardTempMat
-    2100006: gearMat
-    2100008: gunMat
     2300000: //RootNode
     3300000: //RootNode
     4300000: guard
@@ -20,32 +15,32 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: gearMat
-    second: {fileID: 2100000, guid: 3bcf64d2fa6deb14e86a7e6940f87523, type: 2}
+    second: {fileID: 2100000, guid: 3601d8ca2a4514907ba9cd7224fa6d1e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: guardTempMat
-    second: {fileID: 2100000, guid: 929583817cf41384faa5e120bddad1fc, type: 2}
+    second: {fileID: 2100000, guid: e4caafddb6a974e62aa53754d2aaa64b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: gunMat
-    second: {fileID: 2100000, guid: dfeaeb79bc7cece43b73766a7f4682c0, type: 2}
+    second: {fileID: 2100000, guid: 5abcc384062e245c4b9de9742ca5f76e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: skinMat
-    second: {fileID: 2100000, guid: c744499b5a540c144be2d22f11befdfe, type: 2}
+    second: {fileID: 2100000, guid: fe049cd93429d4a719239df10a71f41d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: standMat
-    second: {fileID: 2100000, guid: 9113043281a6d4f4d9f45256ea443ed1, type: 2}
+    second: {fileID: 2100000, guid: e085afd7f9d27427090cbfd104ef769f, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -83,8 +78,6 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

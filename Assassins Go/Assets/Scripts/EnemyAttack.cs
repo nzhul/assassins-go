@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour {
+public class EnemyAttack : MonoBehaviour
+{
 
-    PlayerManager _player;
+   // reference to PlayerManager component
+    PlayerManager m_player;
 
-    private void Awake()
+    void Awake()
     {
-        _player = FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();
+        m_player = Object.FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();
     }
 
+    // kill the player
     public void Attack()
     {
-        if (_player != null)
+        if (m_player != null)
         {
-            _player.Die();
+            m_player.Die();
         }
     }
-
 }

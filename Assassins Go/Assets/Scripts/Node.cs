@@ -1,69 +1,70 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    Vector2 _coordinate;
-    List<Node> _neighborNodes = new List<Node>();
-    List<Node> _linkedNodes = new List<Node>();
-    Board _board;
+    // (x,z) coordinate on Board, Coordinate property always returns rounded Vector
+    Vector2 m_coordinate;
+    public Vector2 Coordinate { get { return Utility.Vector2Round(m_coordinate); } }
 
-    public Vector2 Coordinate
-    {
-        get
-        {
-            return Utility.Vector2Round(_coordinate);
-        }
-    }
+    // list of nodes that are adjacent based on Board spacing
+    List<Node> m_neighborNodes = new List<Node>();
+    public List<Node> NeighborNodes { get { return m_neighborNodes; } }
 
-    public List<Node> NeighborNodes
-    {
-        get
-        {
-            return _neighborNodes;
-        }
-    }
+    // list of nodes that we are already linked to
+    List<Node> m_linkedNodes = new List<Node>();
+    public List<Node> LinkedNodes { get { return m_linkedNodes; } }
 
-    public List<Node> LinkedNodes
-    {
-        get
-        {
-            return _linkedNodes;
-        }
-    }
+    // reference to the Board component
+    Board m_board;
 
+    // reference to mesh for display of the node
+    public GameObject geometry;
 
     public GameObject linkPrefab;
-    public GameObject geometry;
-    public float scaleTime = .3f;
+
+    // time for scale animation to play
+    public float scaleTime = 0.3f;
+
+    // ease in-out for animation
     public iTween.EaseType easeType = iTween.EaseType.easeInExpo;
-    public float initDelay = 1f;
-    bool _isInitialized = false;
+
+    // delay time before animation
+    public float delay = 1f;
+
+    // whether the node has already been initialized
+    bool m_isInitialized = false;
+
     public LayerMask obstacleLayer;
 
     public bool isLevelGoal = false;
 
-    private void Awake()
+    void Awake()
     {
-        _board = FindObjectOfType<Board>();
-        _coordinate = new Vector2(transform.position.x, transform.position.z);
+        // find reference to the Board component
+        m_board = Object.FindObjectOfType<Board>();
+
+        // set the coordinate using the transform's x and z values
+        m_coordinate = new Vector2(transform.position.x, transform.position.z);
     }
 
-    private void Start()
+    void Start()
     {
+        // hide the mesh by scaling to zero
         if (geometry != null)
         {
             geometry.transform.localScale = Vector3.zero;
-        }
 
-        if (_board != null)
-        {
-            _neighborNodes = FindNeighbors(_board.AllNodes);
+            // find the neighboring nodes
+            if (m_board != null)
+            {
+                m_neighborNodes = FindNeighbors(m_board.AllNodes);
+            }
         }
     }
 
+    // play scale animation
     public void ShowGeometry()
     {
         if (geometry != null)
@@ -72,24 +73,30 @@ public class Node : MonoBehaviour
                 "time", scaleTime,
                 "scale", Vector3.one,
                 "easetype", easeType,
-                "delay", initDelay
+                "delay", delay
             ));
         }
     }
 
+    // given a list of Nodes, return a subset of the list that are neighbors
     public List<Node> FindNeighbors(List<Node> nodes)
     {
+        // temporary list of nodes to return
         List<Node> nList = new List<Node>();
 
+        // loop through each of the Board directions
         foreach (Vector2 dir in Board.directions)
         {
+            // find a neighboring node at the current direction...
             Node foundNeighbor = FindNeighborAt(nodes, dir);
+
+            // if we find a neighbor at this direction, add it to the list
             if (foundNeighbor != null && !nList.Contains(foundNeighbor))
             {
                 nList.Add(foundNeighbor);
             }
         }
-
+        // return our temporary list
         return nList;
     }
 
@@ -103,28 +110,37 @@ public class Node : MonoBehaviour
         return FindNeighborAt(NeighborNodes, dir);
     }
 
+
     public void InitNode()
     {
-        if (!_isInitialized)
+        // if the Node has not been activated yet...
+        if (!m_isInitialized)
         {
+            // show the geometry
             ShowGeometry();
+
+            // trigger its neighbors to the do the same
             InitNeighbors();
-            _isInitialized = true;
+
+            // set our initialization state to true
+            m_isInitialized = true;
         }
     }
 
-    private void InitNeighbors()
+    void InitNeighbors()
     {
         StartCoroutine(InitNeighborsRoutine());
     }
 
-    private IEnumerator InitNeighborsRoutine()
+    IEnumerator InitNeighborsRoutine()
     {
-        yield return new WaitForSeconds(initDelay);
+        // pause for a short delay
+        yield return new WaitForSeconds(delay);
 
-        foreach (Node n in _neighborNodes)
+        // run InitNode on each neighboring node if they are not already linked
+        foreach (Node n in m_neighborNodes)
         {
-            if (!_linkedNodes.Contains(n))
+            if (!m_linkedNodes.Contains(n))
             {
                 Obstacle obstacle = FindObstacle(n);
                 if (obstacle == null)
@@ -136,36 +152,46 @@ public class Node : MonoBehaviour
         }
     }
 
+    // draw a link from this Node to a target Node
     void LinkNode(Node targetNode)
     {
-        GameObject linkInstance = Instantiate(linkPrefab, transform.position, Quaternion.identity);
-        linkInstance.transform.parent = transform;
+        if (linkPrefab != null)
+        {
+            // instantiate our prefab and parent to this Node
+            GameObject linkInstance = Instantiate(linkPrefab, transform.position, Quaternion.identity);
+            linkInstance.transform.parent = transform;
 
-        Link link = linkInstance.GetComponent<Link>();
-        if (link != null)
-        {
-            link.DrawLink(transform.position, targetNode.transform.position);
-        }
+            // draw the link
+            Link link = linkInstance.GetComponent<Link>();
+            if (link != null)
+            {
+                link.DrawLink(transform.position, targetNode.transform.position);
+            }
 
-        if (!_linkedNodes.Contains(targetNode))
-        {
-            _linkedNodes.Add(targetNode);
-        }
-        if (!targetNode.LinkedNodes.Contains(this))
-        {
-            targetNode.LinkedNodes.Add(this);
+            // track what Nodes have been linked to other Nodes
+            if (!m_linkedNodes.Contains(targetNode))
+            {
+                m_linkedNodes.Add(targetNode);
+            }
+
+            if (!targetNode.LinkedNodes.Contains(this))
+            {
+                targetNode.LinkedNodes.Add(this);
+            }
         }
     }
 
     Obstacle FindObstacle(Node targetNode)
     {
-        Vector3 checkDirection = targetNode.transform.position - this.transform.position;
+        Vector3 checkDirection = targetNode.transform.position - transform.position;
         RaycastHit raycastHit;
-        if (Physics.Raycast(transform.position, checkDirection, out raycastHit, Board.spacing + .1f, obstacleLayer))
+
+        if (Physics.Raycast(transform.position, checkDirection, out raycastHit, Board.spacing + 0.1f,
+                            obstacleLayer))
         {
+            //Debug.Log("NODE FindObstacle: Hit an obstacle from " + this.name + " to " + targetNode.name);
             return raycastHit.collider.GetComponent<Obstacle>();
         }
-
         return null;
     }
 }

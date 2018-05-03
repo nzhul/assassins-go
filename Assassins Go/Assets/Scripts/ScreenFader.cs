@@ -1,31 +1,42 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(MaskableGraphic))]
 public class ScreenFader : MonoBehaviour
 {
+    // solid color (alpha is 1)
+    public Color solidColor = Color.white;
 
-    public Color solidColor = Color.white; // 1,1,1,1
-    public Color clearColor = new Color(1f, 1f, 1f, 0);
+    // clear color (alpha is 0)
+    public Color clearColor = new Color (1f, 1f, 1f, 0f);
 
-    public float delay = .5f;
-    public float timeToFade = 1f;
+    // delay before iTweening
+    public float delay = 0.5f;
+
+    // time for iTween animation
+    public float timeToFade = 2f;
+
+    // ease in-out for iTween animation
     public iTween.EaseType easeType = iTween.EaseType.easeOutExpo;
 
-    MaskableGraphic _graphic;
+    // reference to Maskable Graphic component
+    MaskableGraphic graphic;
 
-
-
-    private void Awake()
+    void Awake()
     {
-        _graphic = GetComponent<MaskableGraphic>();
+    	// cache the graphic
+        graphic = GetComponent<MaskableGraphic>();
     }
 
+	// use this Update the color during the iTween.ValueTo
     void UpdateColor(Color newColor)
     {
-        _graphic.color = newColor;
+        graphic.color = newColor;
     }
 
+   	// use the iTween.ValueTo method to transition from solid color to clear color
     public void FadeOff()
     {
         iTween.ValueTo(gameObject, iTween.Hash(
@@ -39,17 +50,17 @@ public class ScreenFader : MonoBehaviour
         ));
     }
 
-    public void FadeOn()
-    {
-        iTween.ValueTo(gameObject, iTween.Hash(
+	// use the iTween.ValueTo method to transition from clear color to solid color
+	public void FadeOn()
+	{
+		iTween.ValueTo(gameObject, iTween.Hash(
             "from", clearColor,
             "to", solidColor,
-            "time", timeToFade,
-            "delay", delay,
-            "easetype", easeType,
-            "onupdatetarget", gameObject,
-            "onupdate", "UpdateColor"
-        ));
-    }
-
+			"time", timeToFade,
+			"delay", delay,
+			"easetype", easeType,
+			"onupdatetarget", gameObject,
+			"onupdate", "UpdateColor"
+		));
+	}
 }
