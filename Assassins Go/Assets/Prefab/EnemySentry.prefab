@@ -63,7 +63,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: e085afd7f9d27427090cbfd104ef769f, type: 2}
   - {fileID: 2100000, guid: fe049cd93429d4a719239df10a71f41d, type: 2}
-  - {fileID: 2100000, guid: e4caafddb6a974e62aa53754d2aaa64b, type: 2}
+  - {fileID: 2100000, guid: 8f4f73af0374be0489bb108aeae9ea8c, type: 2}
   - {fileID: 2100000, guid: 3601d8ca2a4514907ba9cd7224fa6d1e, type: 2}
   - {fileID: 2100000, guid: 5abcc384062e245c4b9de9742ca5f76e, type: 2}
   m_StaticBatchInfo:
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offscreenOffset: {x: 0, y: 10, z: 0}
-  deathDelay: 4
+  deathDelay: 0
   offscreenDelay: 1
   iTweenDelay: 0
   easeType: 11

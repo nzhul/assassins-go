@@ -12,6 +12,8 @@ public class PlayerManager : TurnManager
 	public PlayerMover playerMover;
     public PlayerInput playerInput;
 
+    Board _board;
+
     public UnityEvent deathEvent;
 
     protected override void Awake()
@@ -21,6 +23,8 @@ public class PlayerManager : TurnManager
 		// cache references to PlayerMover and PlayerInput
 		playerMover = GetComponent<PlayerMover>();
         playerInput = GetComponent<PlayerInput>();
+
+        _board = FindObjectOfType<Board>().GetComponent<Board>();
 
 		// make sure that input is enabled when we begin
 		playerInput.InputEnabled = true;
@@ -68,5 +72,30 @@ public class PlayerManager : TurnManager
         {
             deathEvent.Invoke();
         }
+    }
+
+    void CaptureEnemies()
+    {
+        if (_board != null)
+        {
+            List<EnemyManager> enemies = _board.FindEnemiesAt(_board.PlayerNode);
+
+            if (enemies.Count != 0)
+            {
+                foreach (EnemyManager enemy in enemies)
+                {
+                    if (enemy != null)
+                    {
+                        enemy.Die();
+                    }
+                }
+            }
+        }
+    }
+
+    public override void FinishTurn()
+    {
+        CaptureEnemies();
+        base.FinishTurn();
     }
 }

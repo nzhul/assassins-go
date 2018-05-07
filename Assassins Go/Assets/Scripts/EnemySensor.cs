@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemySensor : MonoBehaviour
 {
@@ -24,11 +22,18 @@ public class EnemySensor : MonoBehaviour
     }
 
     // check if the Player has moved into our sensor
-    public void UpdateSensor()
+    public void UpdateSensor(Node enemyNode)
     {
         // convert the local directionToSearch into a world space 3d position
         Vector3 worldSpacePositionToSearch = transform.TransformVector(directionToSearch) 
                                                       + transform.position;
+
+        if (!enemyNode.LinkedNodes.Contains(m_nodeToSearch))
+        {
+            m_foundPlayer = false;
+            return;
+        }
+
         if (m_board != null)
         {
             // find the node at the world space position to search
